@@ -12,35 +12,39 @@ import java.sql.SQLException;
 public class App {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         menuPrint();
-        /*String password = readPassword("Enter password: ");
-        System.out.println("The password entered is: "+password);*/
+        /*
+         * String password = readPassword("Enter password: ");
+         * System.out.println("The password entered is: "+password);
+         */
     }
 
-    public static void menuPrint() throws ClassNotFoundException, SQLException{
+    public static void menuPrint() throws ClassNotFoundException, SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("+======================================");
+        System.out.println("+=====================================+");
         System.out.println("|          TABELA DE LOGIN            |");
         System.out.println("|                                     |");
         System.out.println("| 1 - Login                           |");
-        System.out.println("| 2 - Sign Up                         |"); 
-        System.out.println("| 3 - Sair                            |"); 
+        System.out.println("| 2 - Sign Up                         |");
+        System.out.println("| 3 - Sair                            |");
         System.out.println("+=====================================+");
         System.out.print("\n>> ");
         int opcao = scanner.nextInt();
-        System.out.print("\033[H\033[2J");  
+        System.out.print("\033[H\033[2J");
+        execLogin();
+    }
+
+    public static void execLogin(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Login:");
+        System.out.print("\tEnter Email => ");
+        String email = scanner.nextLine();
+        String password = readPassword("\n\tEnter Password => ");
         
-        }
-
-
-
-
-
-
-
+    }
 
     public static void ads() throws ClassNotFoundException, SQLException {
-        BDConnect asdas = BDConnect.getInstance();   
+        BDConnect asdas = BDConnect.getInstance();
     }
 
     public static class EraserThread implements Runnable {
@@ -59,9 +63,9 @@ public class App {
         public void run() {
             stop = true;
             while (stop) {
-                System.out.print("\010*");
                 try {
                     Thread.currentThread().sleep(1);
+                    System.out.print("\010*");
                 } catch (InterruptedException ie) {
                     ie.printStackTrace();
                 }
@@ -95,6 +99,4 @@ public class App {
         return password;
     }
 
-    
 }
-
