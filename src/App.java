@@ -57,12 +57,10 @@ public class App {
 
         System.out.print("\033[H\033[2J");
 
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-        User user = Utils.loginUser("a9042@oficina.pt", digest.digest(password.getBytes(StandardCharsets.UTF_8)).toString());
+        User user = Utils.loginUser(email, password);
 
         if(user != null){
-            System.out.println("Logado com sucesso!");
+            abrirJanela(user);
         }
         else{
             System.out.println("Login Invalido tente outra vez!");
@@ -79,17 +77,38 @@ public class App {
         String username = scanner.nextLine();
         System.out.print("\tIntroduza número de telefone => ");
         String telefone = scanner.nextLine();
-        String password = readPassword("\n\tIntroduza Password =>  ");
-
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        password = digest.digest(password.getBytes(StandardCharsets.UTF_8)).toString();
+        String password = readPassword("\tIntroduza Password =>  ");
 
         Utils.signupUser(email,username,telefone,password);
+        System.out.print("\033[H\033[2J");
         menuPrint();
     }
 
-    public static void ads() throws ClassNotFoundException, SQLException {
-        BDConnect asdas = BDConnect.getInstance();
+    public static void abrirJanela(User user)throws ClassNotFoundException, SQLException,NoSuchAlgorithmException{
+        if(user.cargo.equals("admin")){
+            System.out.println("                        JANELA DO ADMINISTRADOR       \n");
+            System.out.println("Bem-vindo " + user.nome + "!\n");
+            System.out.print("Ultimo login: " + user.ultimoLogin);
+            System.out.print("   Registrado em: " + user.registo);
+            System.out.println("\nInsira uma tecla para fazer logoff!");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            Utils.updateEntry(user);
+            System.out.print("\033[H\033[2J");
+            menuPrint();
+        }
+        else{
+            System.out.println("                          JANELA DO UTILIZADOR       \n");
+            System.out.println("Bem-vindo " + user.nome + "!\n");
+            System.out.print("Ultimo login: " + user.ultimoLogin);
+            System.out.print("   Registrado em: " + user.registo);
+            System.out.println("\nInsira uma tecla para fazer logoff!");
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
+            Utils.updateEntry(user);
+            System.out.print("\033[H\033[2J");
+            menuPrint();
+        }
     }
 
     public static class EraserThread implements Runnable {

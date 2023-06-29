@@ -55,3 +55,8 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- Inserir o admin do espaço só para mostrar
+
+INSERT INTO user(nome,telemovel,email,registo_data,ultimo_login,password,FUNCAO_id) VALUES ("Master","951582452","a9042@oficina.pt",NOW(),NOW(),"1234567",1);
+
